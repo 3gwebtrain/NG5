@@ -5,6 +5,7 @@ import {Component} from '@angular/core';
 	template:`<h1>Time left: {{seconds}}</h1>`
 })
 
+
 export class CountdownTimerComponent{
 	seconds: number = 25;
 	intervalId: any;
@@ -19,3 +20,10 @@ export class CountdownTimerComponent{
 		}
 	}
 }
+
+@Component({
+	selector:"timer",
+	template:"<countdown-timer></countdown-timer>"
+})
+
+export class TimerComponent{}

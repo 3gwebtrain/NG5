@@ -5,10 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { CountdownTimerComponent } from './timer.component';
+import { TimerComponent } from './timer.component';
 
 @NgModule({
   declarations: [
-    AppComponent, CountdownTimerComponent
+    AppComponent, 
+    CountdownTimerComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
