@@ -1,57 +1,21 @@
 import {Component} from '@angular/core';
 
 @Component({
-	selector : "timer",
-	template:`	
-		<div class="text-center">
-			<img src="assets/img/timer.png" alt="Timer" width="70">
-			<h1> {{ minutes }}:{{ seconds | number:'2.0' }}</h1>
-			<p>
-				<button class="btn btn-danger" (click)="togglePause()">{{ buttonLabel }}</button>
-			</p>
-		</div>
-	`
+	selector : "countdown-timer",
+	template:`<h1>Time left: {{seconds}}</h1>`
 })
 
-export class TimerComponent{
-
-	minutes:number;
-	seconds:number;
-	isPaused:boolean;
-	buttonLabel:string;
+export class CountdownTimerComponent{
+	seconds: number = 25;
+	intervalId: any;
 
 	constructor(){
-		this.reset();
-		setInterval(()=> this.tick(), 1000 );
-	}
-
-	togglePause(){
-		this.isPaused = !this.isPaused;
-
-		if(this.minutes < 24 || this.seconds < 59 ){
-			this.buttonLabel = this.isPaused ? 'Resume' : 'Pause';
-		}
-	}
-
-	reset(){
-		this.minutes = 24;
-		this.seconds = 59;
-		this.buttonLabel = 'Start';
-		this.togglePause();
+		this.intervalId = setInterval(()=> this.tick(), 1000 );
 	}
 
 	private tick(){
-		if(!this.isPaused){
-			this.buttonLabel = 'Pause';
-
-			if(--this.seconds < 0 ){
-				this.seconds = 59;
-
-				if(--this.minutes < 0 ){
-					this.reset();
-				}
-			}
+		if(--this.seconds < 1 ){
+			clearInterval(this.intervalId);
 		}
-		
 	}
 }

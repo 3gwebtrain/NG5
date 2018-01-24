@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { TimerComponent } from './timer.component';
+import { CountdownTimerComponent } from './timer.component';
 
 @NgModule({
   declarations: [
-    AppComponent, TimerComponent
+    AppComponent, CountdownTimerComponent
   ],
   imports: [
     BrowserModule,
