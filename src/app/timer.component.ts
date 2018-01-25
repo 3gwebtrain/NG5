@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input,  Output, EventEmitter } from '@angular/core';
 
 @Component({
 	selector : "countdown-timer",
@@ -7,8 +7,9 @@ import {Component} from '@angular/core';
 
 
 export class CountdownTimerComponent{
-	seconds: number = 25;
+	@Input() seconds : number;
 	intervalId: any;
+	@Output() complete: EventEmitter = new EventEmitter();
 
 	constructor(){
 		this.intervalId = setInterval(()=> this.tick(), 1000 );
@@ -17,13 +18,21 @@ export class CountdownTimerComponent{
 	private tick(){
 		if(--this.seconds < 1 ){
 			clearInterval(this.intervalId);
+			this.complete.emit(null);
 		}
 	}
 }
 
 @Component({
 	selector:"timer",
-	template:"<countdown-timer></countdown-timer>"
+	template:`
+		<div class="container text-center">
+			<countdown-timer [seconds]="25" (complete)="onCountdownCompleted()" ></countdown-timer>
+ 		</div>`
 })
 
-export class TimerComponent{}
+export class TimerComponent{
+	onCountdownCompleted():void{
+		alert("Time up!");
+	}
+}
