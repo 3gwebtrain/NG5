@@ -1,15 +1,18 @@
-import {Component, Input,  Output, EventEmitter } from '@angular/core';
+import {Component, Input,  Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
 	selector : "countdown-timer",
-	template:`<h1>Time left: {{seconds}}</h1>`
+	template:`<h1>Time left: {{seconds}}</h1>`,
+	styles: ['h1 { color: #900}'],
+	encapsulation: ViewEncapsulation.Emulated
 })
 
 
 export class CountdownTimerComponent{
 	@Input() seconds : number;
 	intervalId: any;
-	@Output() complete: EventEmitter = new EventEmitter();
+	@Output() complete: EventEmitter<any> = new EventEmitter();
+	@Output() progress: EventEmitter<number> = new EventEmitter();
 
 	constructor(){
 		this.intervalId = setInterval(()=> this.tick(), 1000 );
@@ -20,15 +23,13 @@ export class CountdownTimerComponent{
 			clearInterval(this.intervalId);
 			this.complete.emit(null);
 		}
+		this.progress.emit(this.seconds);
 	}
 }
 
 @Component({
 	selector:"timer",
-	template:`
-		<div class="container text-center">
-			<countdown-timer [seconds]="25" (complete)="onCountdownCompleted()" ></countdown-timer>
- 		</div>`
+	templateUrl: './timer.component.html'
 })
 
 export class TimerComponent{
